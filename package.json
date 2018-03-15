@@ -2,7 +2,7 @@
   "name": "stem-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001", //running rails on port 3001
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "node-sass-chokidar": "^1.1.0",
     "react": "^16.2.0",
