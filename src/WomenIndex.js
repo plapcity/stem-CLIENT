@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class WomenIndex extends React.Component {
 	state = {
@@ -17,6 +18,7 @@ class WomenIndex extends React.Component {
 			return response.json();
 		})
 		.then((json) => {
+			console.log(json.data)
 			this.setState({
 				data: json.data,
 			})
@@ -24,17 +26,18 @@ class WomenIndex extends React.Component {
 		.catch(console.error)
 	}
 
+
 	renderWomen(){
-		return this.state.data.map(woman => <div key={woman.id}>{woman.attributes.name}</div>)
+		return this.state.data.map(woman => <li key={parseInt(woman.id,10)}><Link to={`/women/${parseInt(woman.id, 10)}`}>{woman.attributes.name}</Link></li>)
 	}
 
 
 	render() {
 		if (!this.state.data) return null;
 		return (
-			<div className="list">
+			<ul key="index" className="list">
 				{this.renderWomen()}
-			</div>
+			</ul>
 		)
 	}
 }
