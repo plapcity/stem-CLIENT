@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Woman from './Woman';
 import WomenIndex from './WomenIndex';
+import WomanForm from './WomanForm';
 
 
 class App extends Component {
@@ -39,7 +40,7 @@ class App extends Component {
   //     ))
   // }
 
-  renderRoutes(){
+  renderViewRoutes(){
     return this.state.data.map(item => (
       <Route
         key={parseInt(item.id, 10)}
@@ -49,6 +50,20 @@ class App extends Component {
     ))
   }
 
+  renderEditRoutes(){
+    return this.state.data.map(item => (
+     <Route
+        key={parseInt(item.id, 10)}
+        path={`/women/edit/${parseInt(item.id)}`}
+        render={() => <WomanForm id={parseInt(item.id, 10)} attributes={item.attributes}/>}
+      />
+    ))
+  }
+
+
+
+   
+
   render() {
     if (!this.state.data) return null;
     return (
@@ -56,7 +71,8 @@ class App extends Component {
         <div>
           <Link to='/women'>View all women</Link>
           <Route key='all-women' exact path='/women' render={() => <WomenIndex /> }/> 
-          {this.renderRoutes()}
+          {this.renderViewRoutes()}
+          {this.renderEditRoutes()}
         </div>
       </Router>
     );

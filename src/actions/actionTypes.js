@@ -1,0 +1,1 @@
+export const LOAD_WOMEN_SUCCESS = 'LOAD_WOMEN_SUCCESS';
