@@ -16,15 +16,23 @@ import Header from './components/common/Header'
 const store = configureStore();
 store.dispatch(loadWomen());
 
-render(
-	<Provider store={store}>
-		<Router>
-			<App>
-				<Route exact path='/' component={Home}/>
-				<Route path='/women' component={WomenIndex}/>
-			</App>
-		</Router>
-	</Provider>, 
-	document.getElementById('root')
+
+const renderPage = () => {
+	render(
+		<Provider store={store}>
+			<Router>
+				<App>
+					<Route exact path='/' component={Home}/>
+					<Route path='/women' component={WomenIndex}/>
+				</App>
+			</Router>
+		</Provider>, 
+		document.getElementById('root')
 	);
+}
+
+// added this so that we don't render the page 
+// until we get a response from the action. 
+// when i didn't have this, it rendered before the action was complete.
+store.subscribe(renderPage);
 
