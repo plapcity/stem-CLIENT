@@ -4,7 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const WomenList = ({women}) => {
-	console.log(women);
 	return (
 		<ul className="list-group">
 			{women.map(woman => 

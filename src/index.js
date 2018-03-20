@@ -10,10 +10,8 @@ import App from './components/App'
 import Home from './components/home/Home';
 import WomenIndex from './components/women/WomenIndex';
 import Woman from './components/women/Woman'
+import Header from './components/common/Header'
 
-// import './index.css';
-// import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore();
 store.dispatch(loadWomen());
@@ -21,10 +19,10 @@ store.dispatch(loadWomen());
 render(
 	<Provider store={store}>
 		<Router>
-			<div>
+			<App>
 				<Route exact path='/' component={Home}/>
 				<Route path='/women' component={WomenIndex}/>
-			</div>
+			</App>
 		</Router>
 	</Provider>, 
 	document.getElementById('root')

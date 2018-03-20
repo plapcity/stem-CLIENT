@@ -11,15 +11,14 @@ class WomenIndex extends React.Component {
 	renderList = () => {
 		// TODO: figure out why the page is rendering before the action is called. Had to do this to avoid major errors.
 		if(this.props.women.data) {
-			console.log("women data");
 			return <WomenList women={this.props.women.data}/>
 		} else {
-			console.log("no women yet");
-			return <h1>no women yet</h1>
+			return <h1>no women</h1>
 		}
 		
 	}
 	render() {
+		console.log("women index render");
 		return(
 			<div className="col-md-12">
 				<h1>Women in STEM</h1>
@@ -37,6 +36,7 @@ WomenIndex.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
+	console.log(state.women);
 	return {
 		women: state.women
 	}
