@@ -10,30 +10,19 @@ import Woman from './Woman';
 
 class WomenIndex extends React.Component {
 
-	renderList = () => {
-		// TODO: figure out why the page is rendering before the action is called. Had to do this to avoid major errors.
-		if(this.props.women.data) {
-			return <WomenList women={this.props.women.data}/>
-		} else {
-			return <h1>no women</h1>
-		}
-		
-	}
 	render() {
-		console.log("women index render");
 		return(
 			<div className="col-md-12">
 				<h1>Women in STEM</h1>
 				<div className="col-md-4">
-		
+					<WomenList women={this.props.women.data}/>
 				</div>
-				<Route exact path='/women' render={() => <WomenList women={this.props.women.data}/>}/>
-				<Route path='/women/:id' component={Woman}/>
+				<div className="col-md-8">
+					<Route path='/women/:id' component={Woman}/>
+				</div>
 			</div>
-
 		)
 	}
-
 }
 
 WomenIndex.propTypes = {
@@ -43,7 +32,6 @@ WomenIndex.propTypes = {
 function mapStateToProps(state, ownProps) {
 	// mapStatetoProps gets state from the store whenever its changed 
 	// and make the data avail to component as props. 
-	console.log(state.women);
 	return {
 		women: state.women
 	}

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 class Woman extends React.Component {
 
 	render() {
-		console.log('woman render', this.props.woman);
 		if (!this.props.woman) return null;
 		return (
 			<div className="woman">
@@ -21,7 +20,6 @@ class Woman extends React.Component {
 const mapStateToProps = (state, props) => {
 	let woman = {id: '', attibutes: {name: '', bio: '', image_src: ''}};
 	const womanId = props.match.params.id
-
 	if (state.women.data.length) {
 		woman = Object.assign({}, state.women.data.find(woman => womanId === woman.id))
 	}
