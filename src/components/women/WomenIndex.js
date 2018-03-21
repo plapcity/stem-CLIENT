@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as womenActions from '../../actions/womenActions'
+import * as womanActions from '../../actions/womanActions'
 import WomenList from './WomenList'
 import { Route } from 'react-router-dom';
 import Woman from './Woman';
@@ -10,12 +10,15 @@ import Woman from './Woman';
 
 class WomenIndex extends React.Component {
 
+
 	render() {
 		return(
 			<div className="col-md-12">
 				<h1>Women in STEM</h1>
 				<div className="col-md-4">
-					<WomenList women={this.props.women.data}/>
+					{console.log("women index props", this.props.women)}
+					<WomenList women={this.props.women}/>
+					
 				</div>
 				<div className="col-md-8">
 					<Route path='/women/:id' component={Woman}/>
@@ -30,6 +33,7 @@ WomenIndex.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
+	console.log(state.women)
 	// mapStatetoProps gets state from the store whenever its changed 
 	// and make the data avail to component as props. 
 	return {

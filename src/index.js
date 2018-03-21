@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import routes from './routes';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
-import { loadWomen } from './actions/womenActions';
+import { loadWomen } from './actions/womanActions';
 
 import App from './components/App'
 import Home from './components/home/Home';
 import WomenIndex from './components/women/WomenIndex';
-import Woman from './components/women/Woman'
-import Header from './components/common/Header'
 
 
 const store = configureStore();
