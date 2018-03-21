@@ -40,6 +40,7 @@ class Woman extends React.Component {
 	saveWoman = (e) => {
 		e.preventDefault();
 		this.props.actions.updateWoman(this.state.woman);
+		this.toggleEdit();
 	}
 
 	render() {
@@ -47,7 +48,7 @@ class Woman extends React.Component {
 		if(this.state.isEditing) {
 			return (
 				<div>
-					<h1>Editing {this.props.woman.attributes.name}</h1>
+					<h1>Editing </h1>
 					<WomanForm
 						woman={this.state.woman}
 						onSave={this.saveWoman}
@@ -72,7 +73,6 @@ class Woman extends React.Component {
 // };
 
 const mapStateToProps = (state, props) => {
-	console.log(state, props)
 	let woman = {id: '', name: '', bio: ''};
 	const womanId = props.match.params.id
 	if (state.women.length) {
