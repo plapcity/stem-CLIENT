@@ -19,9 +19,7 @@ class WomenIndex extends React.Component {
 				<h1>Women in STEM</h1>
 				<Link to="/women/new">Add new Woman</Link>
 				<div className="col-md-4">
-					{console.log("women index props", this.props.women)}
 					<WomenList women={this.props.women}/>
-					
 				</div>
 				<div className="col-md-8">
 					<Switch>
@@ -42,7 +40,6 @@ class WomenIndex extends React.Component {
 // }
 
 function mapStateToProps(state, ownProps) {
-	console.log(state.women)
 	// mapStatetoProps gets state from the store whenever its changed 
 	// and make the data avail to component as props. 
 	return {

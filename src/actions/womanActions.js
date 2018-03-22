@@ -26,3 +26,17 @@ export function updateWoman(woman) {
 export function updateWomanSuccess(woman) {
 	return { type: types.UPDATE_WOMAN_SUCCESS, woman}
 }
+
+export function createWoman(woman) {
+	return function(dispatch) {
+		return womanApi.createWoman(woman)
+			.then(responseWoman => {
+				dispatch(createWomanSuccess(responseWoman));
+			})
+			.catch(error => {throw(error)})
+	}
+}
+
+export function createWomanSuccess(woman) {
+	return { type: types.CREATE_WOMAN_SUCCESS, woman}
+}

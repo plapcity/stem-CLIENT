@@ -39,6 +39,29 @@ class WomanApi {
         return error;
       })
   }
+
+  static createWoman(woman) {
+    const attributes = woman.attributes
+    console.log("create woman")
+    const request = new Request(`/api/women`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(attributes)
+    });
+
+
+    return fetch(request)
+      .then(response => {
+        return response.json();
+      })
+      .catch(error => {
+        console.log("error", error);
+        return error;
+      })
+  }
 }
 
 export default WomanApi;

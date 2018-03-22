@@ -29,11 +29,10 @@ class NewWoman extends React.Component {
 
 	saveWoman = (e) => {
 		e.preventDefault();
-		this.props.actions.CreateWoman(this.state.woman);
+		this.props.actions.createWoman(this.state.woman);
 	}
 
 	render() {
-		console.log("new woman render")
 		if (!this.props.woman) return null;
 			return (
 				<div>
@@ -56,7 +55,6 @@ class NewWoman extends React.Component {
 // };
 
 const mapStateToProps = (state, props) => {
-	console.log(props.match)
 	let woman = {
 				attributes: {
 					name: '',
