@@ -7,6 +7,7 @@ import { loadWomen } from './actions/womanActions';
 import history  from './history'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css'
 
 import App from './components/App'
 import Home from './components/home/Home';

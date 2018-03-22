@@ -18,10 +18,14 @@ class WomenIndex extends React.Component {
 
 			<Container>
 				<Row>
+					<Col>
 						<h2>Women in STEM <Badge color="secondary" pill>{this.props.women.length}</Badge></h2>
+					</Col>
 				</Row>
 				<Row>
-				<Link className="btn btn-primary" to="/women/new">Add new Woman</Link>
+					<Col>
+						<Link className="btn btn-primary" to="/women/new">Add new Woman</Link>
+					</Col>
 				</Row>
 				<Row>
 					<div className="col-md-4">
