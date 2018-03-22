@@ -4,6 +4,7 @@ import WomanForm from './WomanForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as womanActions from '../../actions/womanActions'
+import { Button } from 'reactstrap';
 
 
 class Woman extends React.Component {
@@ -67,8 +68,8 @@ class Woman extends React.Component {
 			<div className="woman">
 				<h1>{this.props.woman.attributes.name}</h1>
 				<p>{this.props.woman.attributes.bio}</p>
-				<button onClick={this.toggleEdit}>Edit</button>
-				<button onClick={this.deleteWoman}>Delete</button>
+				<Button color="primary" onClick={this.toggleEdit}>Edit</Button>
+				<Button onClick={this.deleteWoman} outline color="danger">Delete</Button>
 			</div>
 		)
 	}
