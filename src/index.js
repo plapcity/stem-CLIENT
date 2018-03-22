@@ -20,7 +20,7 @@ const renderPage = () => {
 			<Router>
 				<App>
 					<Route exact path='/' component={Home}/>
-					<Route path='/women' component={WomenIndex}/>
+					<Route path='/women' render={(props) => <WomenIndex {...props} />}/>
 				</App>
 			</Router>
 		</Provider>, 
