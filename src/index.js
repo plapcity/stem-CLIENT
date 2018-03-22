@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM, { render } from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { loadWomen } from './actions/womanActions';
+import history  from './history'
 
 import App from './components/App'
 import Home from './components/home/Home';
@@ -17,7 +18,7 @@ store.dispatch(loadWomen());
 const renderPage = () => {
 	render(
 		<Provider store={store}>
-			<Router>
+			<Router history={history}>
 				<App>
 					<Route exact path='/' component={Home}/>
 					<Route path='/women' render={(props) => <WomenIndex {...props} />}/>

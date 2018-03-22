@@ -1,5 +1,6 @@
 import womanApi from '../api/womanApi';
 import * as types from './actionTypes';
+import history from '../history'
 
 export function loadWomen() {
 	return function(dispatch) {
@@ -32,6 +33,7 @@ export function createWoman(woman) {
 		return womanApi.createWoman(woman)
 			.then(responseWoman => {
 				dispatch(createWomanSuccess(responseWoman));
+				history.push(`/women/${responseWoman.data.id}`);
 			})
 			.catch(error => {throw(error)})
 	}
