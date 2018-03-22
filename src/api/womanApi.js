@@ -62,6 +62,28 @@ class WomanApi {
         return error;
       })
   }
+
+  static deleteWoman(woman) {
+    const attributes = woman.attributes
+    const request = new Request(`/api/women/${woman.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(attributes)
+    });
+
+
+    return fetch(request)
+      .then(response => {
+        return response.json();
+      })
+      .catch(error => {
+        console.log("error", error);
+        return error;
+      })
+  }
 }
 
 export default WomanApi;

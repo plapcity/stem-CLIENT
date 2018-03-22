@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import WomanForm from './WomanForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -25,7 +24,7 @@ class Woman extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		console.log("comp will receive props", nextProps)
-		if (this.props.woman.id != nextProps.woman.id) {
+		if (this.props.woman.id !== nextProps.woman.id) {
 			this.setState({woman: nextProps.woman})
 		}
 	}
@@ -42,6 +41,13 @@ class Woman extends React.Component {
 		this.props.actions.updateWoman(this.state.woman);
 		this.toggleEdit();
 	}
+
+	deleteWoman = (e) => {
+		e.preventDefault();
+		this.props.actions.deleteWoman(this.state.woman)
+
+	}
+
 
 	render() {
 		if (!this.props.woman) return null;
@@ -62,6 +68,7 @@ class Woman extends React.Component {
 				<h1>{this.props.woman.attributes.name}</h1>
 				<p>{this.props.woman.attributes.bio}</p>
 				<button onClick={this.toggleEdit}>Edit</button>
+				<button onClick={this.deleteWoman}>Delete</button>
 			</div>
 		)
 	}

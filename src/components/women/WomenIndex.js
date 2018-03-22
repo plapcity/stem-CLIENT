@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as womanActions from '../../actions/womanActions'
 import WomenList from './WomenList'
 import { Route, Switch, Link } from 'react-router-dom';
 import Woman from './Woman';
@@ -17,6 +16,7 @@ class WomenIndex extends React.Component {
 		return(
 			<div className="col-md-12">
 				<h1>Women in STEM</h1>
+				<h4>{this.props.women.length} women </h4>
 				<Link to="/women/new">Add new Woman</Link>
 				<div className="col-md-4">
 					<WomenList women={this.props.women}/>

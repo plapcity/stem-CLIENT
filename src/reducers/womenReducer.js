@@ -1,5 +1,6 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
+import history from '../history'
 
 export default function womenReducer(state = initialState.women, action) {
 	switch(action.type) {
@@ -7,6 +8,7 @@ export default function womenReducer(state = initialState.women, action) {
 			return action.women.data
 
 		case types.CREATE_WOMAN_SUCCESS:
+			history.push(`/women/${action.woman.data.id}`);
 			return [
 				...state.filter(woman => woman.id !== action.woman.data.id),
 				Object.assign({}, action.woman.data)
@@ -16,6 +18,10 @@ export default function womenReducer(state = initialState.women, action) {
 				...state.filter(woman => woman.id !== action.woman.data.id),
 				Object.assign({}, action.woman.data)
 			]
+		case types.DELETE_WOMAN_SUCCESS:
+			history.push(`/women`);
+			const indexToDelete = state.findIndex(woman => woman.id == action.woman.id)
+			return state.slice(0, indexToDelete).concat(state.slice(indexToDelete + 1))
 		default: 
 			return state;
 	}

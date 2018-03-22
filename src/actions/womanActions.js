@@ -1,6 +1,5 @@
 import womanApi from '../api/womanApi';
 import * as types from './actionTypes';
-import history from '../history'
 
 export function loadWomen() {
 	return function(dispatch) {
@@ -33,7 +32,7 @@ export function createWoman(woman) {
 		return womanApi.createWoman(woman)
 			.then(responseWoman => {
 				dispatch(createWomanSuccess(responseWoman));
-				history.push(`/women/${responseWoman.data.id}`);
+				
 			})
 			.catch(error => {throw(error)})
 	}
@@ -41,4 +40,20 @@ export function createWoman(woman) {
 
 export function createWomanSuccess(woman) {
 	return { type: types.CREATE_WOMAN_SUCCESS, woman}
+}
+
+export function deleteWoman(woman) {
+	return function(dispatch) {
+		return womanApi.deleteWoman(woman)
+			.then(() => {
+				console.log(`deleted ${woman.id}`)
+				dispatch(deleteWomanSuccess(woman));
+				return;
+			})
+			.catch(error => {throw(error)})
+	}
+}
+
+export function deleteWomanSuccess(woman) {
+	return { type: types.DELETE_WOMAN_SUCCESS, woman}
 }
