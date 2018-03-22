@@ -7,8 +7,9 @@ class WomanForm extends React.Component {
 
 	render() {
 		// if (!this.state.data) return null;
-		const name = this.props.woman.attributes.name || ''
-		const bio = this.props.woman.attributes.bio || ''
+		const name = this.props.woman.name || ''
+		const bio = this.props.woman.bio || ''
+		const image = this.props.woman.image_src
 		return (
 			<Form onSubmit={this.props.onSave}>
 				<FormGroup>
@@ -19,6 +20,10 @@ class WomanForm extends React.Component {
         	<Label htmlFor="bio">Bio: </Label>
         	<Input id="bio" name="bio" type="textarea" value={bio} onChange={(e) => this.props.onChange(e)} />
         </FormGroup>
+        <FormGroup>
+					<Label htmlFor="name">Image URL: </Label>
+        	<Input id="image_src" name="image_src" type="text"  value={image} onChange={(e) => this.props.onChange(e)}/>
+				</FormGroup>
         <input className="btn btn-primary" type="submit" value="submit"/>
 			</Form>
 		)

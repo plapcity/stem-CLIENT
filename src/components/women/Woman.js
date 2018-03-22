@@ -4,7 +4,7 @@ import WomanForm from './WomanForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as womanActions from '../../actions/womanActions'
-import { Button } from 'reactstrap';
+import { Button, Media } from 'reactstrap';
 
 
 class Woman extends React.Component {
@@ -33,7 +33,7 @@ class Woman extends React.Component {
 	updateWomanState = (e) => {
 		const field = e.target.name
 		const woman = this.state.woman
-		woman.attributes[field] = e.target.value
+		woman[field] = e.target.value
 		return this.setState({woman})
 	}
 
@@ -49,8 +49,15 @@ class Woman extends React.Component {
 
 	}
 
+	renderImage = () => {
+		if (this.props.woman.image_src) {
+			return <img src={this.props.woman.image_src} alt={this.props.woman.name} />
+		}
+	}
+
 
 	render() {
+		console.log(this.props);
 		if (!this.props.woman) return null;
 		if(this.state.isEditing) {
 			return (
@@ -66,8 +73,10 @@ class Woman extends React.Component {
 		}
 		return (
 			<div className="woman">
-				<h1>{this.props.woman.attributes.name}</h1>
-				<p>{this.props.woman.attributes.bio}</p>
+				<h1>{this.props.woman.name}</h1>
+				<p>{this.props.woman.bio}</p>
+			
+				{this.renderImage()}
 				<Button color="primary" onClick={this.toggleEdit}>Edit</Button>
 				<Button onClick={this.deleteWoman} outline color="danger">Delete</Button>
 			</div>
@@ -81,8 +90,8 @@ class Woman extends React.Component {
 // };
 
 const mapStateToProps = (state, props) => {
-	let woman = {id: '', name: '', bio: ''};
-	const womanId = props.match.params.id
+	let woman = {id: '', name: '', bio: '', image_src: ''};
+	const womanId = parseInt(props.match.params.id, 10)
 	if (state.women.length) {
 		woman = Object.assign({}, state.women.find(woman => womanId === woman.id))
 	}

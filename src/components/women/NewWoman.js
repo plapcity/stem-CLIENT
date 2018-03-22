@@ -13,7 +13,8 @@ class NewWoman extends React.Component {
 			woman: {
 				attributes: {
 					name: '',
-					bio: ''
+					bio: '',
+					image_src: ''
 				}
 			}
 		}
@@ -57,7 +58,8 @@ const mapStateToProps = (state, props) => {
 	let woman = {
 				attributes: {
 					name: '',
-					bio: ''
+					bio: '',
+					image_src: ''
 				}
 			}
 	return {woman};

@@ -7,7 +7,7 @@ const WomenList = ({women}) => {
 	return (
 		<ul className="list-group">
 			{women.map(woman => 
-				<li className="list-group-item" key={woman.id}><Link to={`/women/${woman.id}`}>{woman.attributes.name}</Link></li>
+				<li className="list-group-item" key={woman.id}><Link to={`/women/${woman.id}`}>{woman.name}</Link></li>
 			)}
 		</ul>
 	)
