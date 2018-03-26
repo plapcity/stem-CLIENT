@@ -11,11 +11,9 @@ class NewWoman extends React.Component {
 		super(props);
 		this.state = {
 			woman: {
-				attributes: {
-					name: '',
-					bio: '',
-					image_src: ''
-				}
+				name: '',
+				bio: '',
+				image_src: ''
 			}
 		}
 	}
@@ -23,7 +21,7 @@ class NewWoman extends React.Component {
 	updateWomanState = (e) => {
 		const field = e.target.name
 		const woman = this.state.woman
-		woman.attributes[field] = e.target.value
+		woman[field] = e.target.value
 		return this.setState({woman})
 	}
 

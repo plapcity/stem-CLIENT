@@ -9,7 +9,7 @@ class WomanForm extends React.Component {
 		// if (!this.state.data) return null;
 		const name = this.props.woman.name || ''
 		const bio = this.props.woman.bio || ''
-		const image = this.props.woman.image_src
+		const image = this.props.woman.image_src || ''
 		return (
 			<Form onSubmit={this.props.onSave}>
 				<FormGroup>

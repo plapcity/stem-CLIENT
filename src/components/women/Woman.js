@@ -57,7 +57,6 @@ class Woman extends React.Component {
 
 
 	render() {
-		console.log(this.props);
 		if (!this.props.woman) return null;
 		if(this.state.isEditing) {
 			return (

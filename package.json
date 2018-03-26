@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "immutability-helper": "^2.6.6",
+    "mwbot": "^1.0.10",
     "node-sass-chokidar": "^1.1.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
