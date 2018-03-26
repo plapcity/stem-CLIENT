@@ -12,7 +12,8 @@ class Woman extends React.Component {
 		super(props);
 		this.state = {
 			isEditing: false,
-			woman: this.props.woman
+			woman: this.props.woman,
+			wikiData: null
 		};
 	}
 
@@ -23,10 +24,48 @@ class Woman extends React.Component {
 		})
 	}
 
+	getWikiInfo = () => {
+		const request = new Request(`https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts|pageimages&titles=${this.props.woman.name}&format=json&redirects=true&exintro=''`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    });
+
+		return fetch(request)
+		.then(response => {
+      return response.json();
+    })
+    .then(json => {
+    	this.setWikiInfo(json)
+    })
+    .catch(error => {
+    	return error;
+    })
+	}
+
+	setWikiInfo = (wikiInfo) => {
+    	const pages = wikiInfo.query.pages
+    	for (const prop in pages) {
+    		if (prop == -1) {
+    			console.log("no results")
+    		}
+    		else {
+    			console.log(pages[prop].extract)
+    			this.setState({
+    				wikiData: pages[prop].extract
+    			})
+    		}
+
+    	}
+	}
+
 	componentWillReceiveProps(nextProps) {
 		console.log("comp will receive props", nextProps)
 		if (this.props.woman.id !== nextProps.woman.id) {
-			this.setState({woman: nextProps.woman})
+			// if going to a new woman, set woman to new woman, and reset other values
+			this.setState({woman: nextProps.woman, isEditing: false, wikiData: null})
 		}
 	}
 
@@ -67,6 +106,8 @@ class Woman extends React.Component {
 						onSave={this.saveWoman}
 						onChange={this.updateWomanState}
 					/>
+				<Button color="primary" onClick={this.getWikiInfo}>get wiki</Button>
+				<div className="wiki" dangerouslySetInnerHTML={{__html: this.state.wikiData}}></div>
 				</div>
 			)
 		}

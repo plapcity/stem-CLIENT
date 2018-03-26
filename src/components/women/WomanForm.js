@@ -18,7 +18,7 @@ class WomanForm extends React.Component {
 				</FormGroup>
 				<FormGroup>
         	<Label htmlFor="bio">Bio: </Label>
-        	<Input id="bio" name="bio" type="textarea" value={bio} onChange={(e) => this.props.onChange(e)} />
+        	<Input id="bio" name="bio" type="textarea" rows="10" value={bio} onChange={(e) => this.props.onChange(e)} />
         </FormGroup>
         <FormGroup>
 					<Label htmlFor="name">Image URL: </Label>
