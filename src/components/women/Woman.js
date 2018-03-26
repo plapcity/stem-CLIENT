@@ -70,6 +70,7 @@ class Woman extends React.Component {
 	}
 
 	updateWomanState = (e) => {
+		// I don't understand why we want to save the state as a user is typing
 		const field = e.target.name
 		const woman = this.state.woman
 		woman[field] = e.target.value
@@ -77,8 +78,17 @@ class Woman extends React.Component {
 	}
 
 	saveWoman = (e) => {
+		console.log("save woman");
 		e.preventDefault();
 		this.props.actions.updateWoman(this.state.woman);
+		this.toggleEdit();
+	}
+
+	cancelWoman = () => {
+		// WHY DOES this.props.woman update? shouldn't that be coming from redux state? 
+		// but redux state shouldn't be updated on updateWomanState... 
+		console.log(this.props.woman, this.state.woman)
+		// this.props.actions.updateWoman(this.props.woman);
 		this.toggleEdit();
 	}
 
@@ -89,14 +99,15 @@ class Woman extends React.Component {
 	}
 
 	renderImage = () => {
-		if (this.props.woman.image_src) {
-			return <img src={this.props.woman.image_src} alt={this.props.woman.name} />
+		if (this.state.woman.image_src) {
+			return <img src={this.state.woman.image_src} alt={this.state.woman.name} />
 		}
 	}
 
 
 	render() {
-		if (!this.props.woman) return null;
+		console.log(this.props.woman, this.state.woman)
+		if (!this.state.woman) return null;
 		if(this.state.isEditing) {
 			return (
 				<div>
@@ -105,6 +116,7 @@ class Woman extends React.Component {
 						woman={this.state.woman}
 						onSave={this.saveWoman}
 						onChange={this.updateWomanState}
+						onCancel={this.cancelWoman}
 					/>
 				<Button color="primary" onClick={this.getWikiInfo}>get wiki</Button>
 				<div className="wiki" dangerouslySetInnerHTML={{__html: this.state.wikiData}}></div>
@@ -113,8 +125,8 @@ class Woman extends React.Component {
 		}
 		return (
 			<div className="woman">
-				<h1>{this.props.woman.name}</h1>
-				<p>{this.props.woman.bio}</p>
+				<h1>{this.state.woman.name}</h1>
+				<p>{this.state.woman.bio}</p>
 			
 				{this.renderImage()}
 				<Button color="primary" onClick={this.toggleEdit}>Edit</Button>
@@ -130,6 +142,7 @@ class Woman extends React.Component {
 // };
 
 const mapStateToProps = (state, props) => {
+	console.log("map state", state, props)
 	let woman = {id: '', name: '', bio: '', image_src: ''};
 	const womanId = parseInt(props.match.params.id, 10)
 	if (state.women.length) {

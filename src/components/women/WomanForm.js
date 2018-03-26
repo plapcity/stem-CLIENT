@@ -11,6 +11,7 @@ class WomanForm extends React.Component {
 		const bio = this.props.woman.bio || ''
 		const image = this.props.woman.image_src || ''
 		return (
+			<div>
 			<Form onSubmit={this.props.onSave}>
 				<FormGroup>
 					<Label htmlFor="name">Name: </Label>
@@ -25,7 +26,10 @@ class WomanForm extends React.Component {
         	<Input id="image_src" name="image_src" type="text"  value={image} onChange={(e) => this.props.onChange(e)}/>
 				</FormGroup>
         <input className="btn btn-primary" type="submit" value="submit"/>
+        
 			</Form>
+			<button onClick={this.props.onCancel} className="btn btn-primary">Cancel</button>
+			</div>
 		)
 	}
 }
