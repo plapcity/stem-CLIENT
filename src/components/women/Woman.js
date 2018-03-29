@@ -10,22 +10,22 @@ import { Button, Media } from 'reactstrap';
 class Woman extends React.Component {
 	constructor(props){
 		super(props);
+		const woman = this.props.woman
 		this.state = {
 			isEditing: false,
-			woman: this.props.woman,
+			woman: woman,
 			wikiData: null
 		};
 	}
 
 	toggleEdit = () => {
-		console.log('toggle');
 		this.setState({
 			isEditing: !this.state.isEditing
 		})
 	}
 
 	getWikiInfo = () => {
-		const request = new Request(`https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts|pageimages&titles=${this.props.woman.name}&format=json&redirects=true&exintro=''`, {
+		const request = new Request(`https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts|pageimages&titles=${this.state.woman.name}&format=json&redirects=true&exintro=''`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -62,15 +62,15 @@ class Woman extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log("comp will receive props", nextProps)
+		// this is somehow this issue with props updating and i don't know why
 		if (this.props.woman.id !== nextProps.woman.id) {
-			// if going to a new woman, set woman to new woman, and reset other values
+		 // if going to a new woman, set woman to new woman, and reset other values
 			this.setState({woman: nextProps.woman, isEditing: false, wikiData: null})
-		}
+		} 
 	}
 
+
 	updateWomanState = (e) => {
-		// I don't understand why we want to save the state as a user is typing
 		const field = e.target.name
 		const woman = this.state.woman
 		woman[field] = e.target.value
@@ -78,7 +78,6 @@ class Woman extends React.Component {
 	}
 
 	saveWoman = (e) => {
-		console.log("save woman");
 		e.preventDefault();
 		this.props.actions.updateWoman(this.state.woman);
 		this.toggleEdit();
@@ -87,8 +86,8 @@ class Woman extends React.Component {
 	cancelWoman = () => {
 		// WHY DOES this.props.woman update? shouldn't that be coming from redux state? 
 		// but redux state shouldn't be updated on updateWomanState... 
-		console.log(this.props.woman, this.state.woman)
-		// this.props.actions.updateWoman(this.props.woman);
+		this.setState({woman: this.props.woman})
+
 		this.toggleEdit();
 	}
 
@@ -106,7 +105,6 @@ class Woman extends React.Component {
 
 
 	render() {
-		console.log(this.props.woman, this.state.woman)
 		if (!this.state.woman) return null;
 		if(this.state.isEditing) {
 			return (
@@ -142,7 +140,7 @@ class Woman extends React.Component {
 // };
 
 const mapStateToProps = (state, props) => {
-	console.log("map state", state, props)
+	console.log("map state to props", state, props )
 	let woman = {id: '', name: '', bio: '', image_src: ''};
 	const womanId = parseInt(props.match.params.id, 10)
 	if (state.women.length) {
