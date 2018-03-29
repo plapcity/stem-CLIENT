@@ -9,11 +9,10 @@ import { Button, Media } from 'reactstrap';
 
 class Woman extends React.Component {
 	constructor(props){
-		super(props);
-		const woman = this.props.woman
+		super(props); 
 		this.state = {
 			isEditing: false,
-			woman: woman,
+			woman: null,
 			wikiData: null
 		};
 	}
@@ -46,33 +45,43 @@ class Woman extends React.Component {
 	}
 
 	setWikiInfo = (wikiInfo) => {
-    	const pages = wikiInfo.query.pages
-    	for (const prop in pages) {
-    		if (prop == -1) {
-    			console.log("no results")
-    		}
-    		else {
-    			console.log(pages[prop].extract)
-    			this.setState({
-    				wikiData: pages[prop].extract
-    			})
-    		}
+  	const pages = wikiInfo.query.pages
+  	for (const prop in pages) {
+  		if (prop == -1) {
+  			console.log("no results")
+  		}
+  		else {
+  			console.log(pages[prop].extract)
+  			this.setState({
+  				wikiData: pages[prop].extract
+  			})
+  		}
+  	}
+	}
 
-    	}
+	componentWillMount(){
+		// this only runs on first load of component
+		this.prepareComponentState(this.props)
 	}
 
 	componentWillReceiveProps(nextProps) {
-		// this is somehow this issue with props updating and i don't know why
+		// this runs on subsequent loads
 		if (this.props.woman.id !== nextProps.woman.id) {
-		 // if going to a new woman, set woman to new woman, and reset other values
-			this.setState({woman: nextProps.woman, isEditing: false, wikiData: null})
+			this.prepareComponentState(nextProps)
 		} 
 	}
 
+	prepareComponentState(props) {
+		this.setState({
+			woman: props.woman,
+			isEditing: false, 
+			wikiData: null})
+	}
 
 	updateWomanState = (e) => {
 		const field = e.target.name
-		const woman = this.state.woman
+		// creating a new instance of woman so that update doesn't update state and props
+		const woman = Object.assign({}, this.state.woman)
 		woman[field] = e.target.value
 		return this.setState({woman})
 	}
@@ -84,10 +93,7 @@ class Woman extends React.Component {
 	}
 
 	cancelWoman = () => {
-		// WHY DOES this.props.woman update? shouldn't that be coming from redux state? 
-		// but redux state shouldn't be updated on updateWomanState... 
 		this.setState({woman: this.props.woman})
-
 		this.toggleEdit();
 	}
 
@@ -134,10 +140,6 @@ class Woman extends React.Component {
 	}
 }
 
-// Woman.propTypes = {  
-//   woman: PropTypes.object.isRequired,
-//   actions: PropTypes.object.isRequired
-// };
 
 const mapStateToProps = (state, props) => {
 	console.log("map state to props", state, props )
